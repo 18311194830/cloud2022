@@ -1,0 +1,31 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-consumer-service
+
+
+eureka:
+  client:
+    #true表示向注册中心注册自己
+    register-with-eureka: true
+    #是否从EurekaServer中抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true才能搭配ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      #设置与Eureka Server交互的地址 查询服务和注册服务都需要依赖这个地址
+#      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+  instance:
+    instance-id: openFeginorder80
+
+#设置fegin客户端超时时间
+ribbon:
+  #指建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 5000
+  #指建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+  ConnectTimeout: 5000
+
+logging:
+  level:
+    com.rht.springcloud.service.PaymentFeginService: debug
